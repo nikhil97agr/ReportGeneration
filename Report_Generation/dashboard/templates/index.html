@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'assets/css/title.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
+</head>
+
+<body>
+    <div class="title-nav-container">
+        <header>
+            <div class="title">
+
+                <h3>
+                    VRIDDHI Report Generation
+                </h3>
+            </div>
+        </header>
+    </div>
+
+    <div class="top-container">
+        <div class="login-form-container">
+            <div class="login-icon">
+                <h3>Details</h3>
+            </div>
+
+            <form>
+                <div>
+                    <label for="member_id">Member Id</label>
+
+                    <input type="text" id="member_id" name="member_id" placeholder="Member Id" />
+                    <p id="id_required">*Member Id Required</p>
+                </div>
+                <div>
+                    <label for="start_date">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" />
+                </div>
+                <div>
+                    <label for="end_date">End Date</label>
+
+                    <input type="date" id="end_date" name="end_date" />
+
+                </div>
+                <div>
+                    <button type="button" id="login">Search</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    <script src=" {% static 'assets/js/jquery.min.js' %}"></script>
+    <script src=" {% static 'assets/js/jquery.validate.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+    <script src="{% static 'assets/js/index.js' %}"></script>
+</body>
+
+</html>

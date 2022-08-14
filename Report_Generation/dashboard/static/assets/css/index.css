@@ -1,0 +1,92 @@
+.top-container{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: #607EAA;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.login-form-container{
+    width: 50%;
+    height: fit-content;
+    position: fixed;
+    background-color: #F9F5EB;
+    top: 10em;
+    left: 20em;
+    border-radius: 30px;
+    padding-bottom: 20px;
+
+}
+
+img{
+    display: inline;
+}
+
+.login-icon{
+     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-form-container div{
+    padding: 10px;
+   
+    color: #00008C;
+    text-align: center;
+}
+
+.login-form-container div h3{
+    font-size: xx-large;
+}
+
+input[type="email"], input[type="password"], input[type="text"], input[type="date"]{
+  border-radius: 50px;
+  text-align: center;
+  font-size: medium;
+  width: 40%;
+  padding: 5px 0 5px 0;
+}
+
+label{
+    font-size: x-large;
+    padding: 0 15px 0 0;
+    width: 20%;
+}
+
+#show_pass{
+    margin-left: -30px;
+    margin-right: 5px;
+}
+
+button{
+    border-radius: 30px;
+    width: 40%;
+    color: white;
+    background-color:#607EAA ;
+    font-weight: 600;
+    font-size: larger;
+}
+hr{
+    border: 1px solid #607EAA;
+}
+button:hover{
+    background-color:#00008C;
+    color: white;
+    border-color: #00008C;
+
+}
+
+a{
+    padding: 0 20px;
+    color: black;
+}
+
+.login-form-container div:nth-child(5){
+    width:100;
+    text-align: center;
+}
+
+p{
+    color: red;
+    display: none;
+}

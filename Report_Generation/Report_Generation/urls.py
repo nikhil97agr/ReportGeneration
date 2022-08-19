@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from dashboard.views import home
+from dashboard.views import home, fetch_transactions
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home')
+    path('', home, name='home'),
+    path('transactions/fetch', fetch_transactions, name='fetch-transactions')
 ]

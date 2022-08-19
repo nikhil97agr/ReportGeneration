@@ -1,81 +1,108 @@
 $(document).ready(() => {
+    
+    $("#account_nums").on('change', function () {
+        const acc = $(this).val()
+        if (acc === 'default') {
+            $("#transactions_table tbody tr").show()
+        }
+        else {
+            $("#transactions_table tbody tr").hide()
 
-    var email_regex = new RegExp(/^\b[A-Za-z0-9]+\.[A-Za-z0-9]+@lntinfotech\.com\b$/i)
-    $('form').validate({
-        errorPlacement: (error, element) => {
-            return true
+            $(`#transactions_table tbody tr[name=${acc}]`).show()
         }
     })
+    
+    $("#search").click(() => {
+        const member_id = $("#member_id").val();
 
-    $(".title").click(() => location.reload(true))
-
-    $("#show_pass").click(function () {
-        $(this).toggleClass("fa-eye-slash")
-        $(this).toggleClass("fa-eye")
-
-        $("#password").attr("type", $(this).hasClass("fa-eye") ? 'text' : 'password')
-
-
-    })
-
-    $("#login").click(() => {
-        const url = $("#verify_url").val()
-
-        email = $("#email").val()
-        password = $("#password").val()
-        if (!$("#email").valid() || !email_regex.test(email)) {
-            $("#email_required").show();
+        if (member_id.trim() === "") {
+            alert("Member ID required");
             return;
+            
         }
-        if (!$("#password").valid()) {
-            $("#password_required").show();
-            return;
-        }
-
+        $("#overlay").show()
+        const url = $("#url").val()
         $.ajax({
             type: "POST",
             url: url,
-            data: JSON.stringify({email:email, password:password, type:"local"}),
+            data: JSON.stringify({ member_id }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: response=> {
-                const STATUS_CODE = response.status.status_code
-                const MESSAGE = response.status.message
-                if (STATUS_CODE == 1) {
-                    alert(MESSAGE)
-                    $('form').trigger('reset')
-                } else {
-                    save_session(response.expiry_time, response.token, response.user_id, response.role)
-                    show_accounts(response.token, response.user_id, response.role)
-
+            success: response => {
+                
+                statuscode = response.status_code
+                if (statuscode == 0) {
+                    render_table(response.data).then(data => { })
+                    .catch(err=>{ })
                 }
+                else {
+                    alert("Invalid member ID")
+                    $("#overlay").hide()
+                }
+                
             },
             error: err => {
-                alert("Something went wrong. Please try again later!!!")
+                alert("Something went wrong")
+                $("#overlay").hide()
             }
         });
+
 
     })
 
 
-})
+
+});
 
 
-const save_session = (expiry_time, token, user_id, role) => {
-    const SESSION = {
-        expiry: expiry_time,
-        token: token,
-        userid: user_id,
-        role: role
+const render_table = async (data) => {
+
+    $("#transactions_table tbody").empty()
+    if (data.length == 0) {
+        $("#transactions_table tbody").append(`<tr>
+                        <td colspan="8" id="no_data">No Data Available</td>
+                    </tr>`)
+        $("#overlay").hide()
+
+        return true;
     }
+
+    accounts = []
+
+    $(data).each((index, obj) => {
+        if ($.inArray(obj.fields.acc_num, accounts)==-1) {
+                accounts.push(obj.fields.acc_num)
+        }
+
+        $("#transactions_table tbody").append(`<tr name="${obj.fields.acc_num}">
+                        <td>${obj.pk}</td>
+                        <td>${obj.fields.acc_num}</td>
+                        <td>${obj.fields.date}</td>
+                        <td>${obj.fields.amount}</td>
+                        <td>${obj.fields.crdr}</td>
+                        <td>${obj.fields.transaction_type}</td>
+                        <td>${obj.fields.rule}</td>
+                        <td>${obj.fields.trans_type_name}</td>
+                    </tr>`)
+
+    })
+
+    $("#account_nums")
+        .empty()                           
+        .append(`<option value = default>All Data</option>`)
     
-    localStorage.setItem("roi_session", JSON.stringify(SESSION))
-}
+    $(accounts).each((index, obj) => {
+        $("#account_nums").append(`<option value = ${obj}>${obj}</option>`)
+    })
 
-const show_accounts = (token, user_id, role) => {
+    $("#overlay").hide()
 
-    var url = $("#show_accounts").val();
-    location.replace(`${window.location.protocol}//${location.host}${url}?token=${token}&user_id=${user_id}&role=${role}`)
+    $(document).animate({
+        scrollTop: $('#transactions_table').offset().top
+    },
+        Math.abs(window.scrollY - $('#transactions_table').offset().top) * 10 )
+    return true;
+
 
     
 }

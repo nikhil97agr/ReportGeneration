@@ -21,34 +21,11 @@ $(document).ready(() => {
         $('#account_btn').css('background-color','#00008C')
         $("#account_state").attr("hidden",false)
     })
-    $("#month_filter").on('change', function(){
-        const date = $(this).val()
-        const acc = $("#account_nums").val()
-
-        var end_date=$("#end_date").val();
-    var start_date= $("#start_date").val();
-    if(start_date ===""){
-        start_date="1960-01-01";
-        
-    }
-    if(end_date === ""){
-        var d = new Date();
-        end_date = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
-        
-    }
-
-    if(date==='default'){
-        apply_date_filter(start_date, end_date, acc)
-    }else{
-        [month, year] = date.split("-")
-        start_date =`${year}-${month}-1`
-        end_date=`${year}-${month}-31`
-        apply_date_filter(start_date, end_date, acc)
-    }
-    })
+   
 
     $("#account_nums").on('change', function () {
         const acc = $(this).val()
+        $("#transactions_table thead[thead-type=date_filter]").hide()
     var end_date=$("#end_date").val();
     var start_date= $("#start_date").val();
     if(start_date ===""){
@@ -60,15 +37,10 @@ $(document).ready(() => {
         end_date = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
         
     }
-    var date = $("#month_filter").val()
-    if(date==='default'){
-        apply_date_filter(start_date, end_date, acc)
-    }else{
-        [month, year] = date.split("-")
-        start_date =`${year}-${month}-1`
-        end_date=`${year}-${month}-31`
-        apply_date_filter(start_date, end_date, acc)
-    }
+    //var date = $("#month_filter").val()
+    
+       
+    
         if (acc === 'default') {
             apply_date_filter(start_date, end_date)
             // $("#transactions_table tbody tr").show()
@@ -103,8 +75,8 @@ $(document).ready(() => {
         }
         if(mem_prev===member_id){
         const acc = $("#account_nums").val()
-        $("#month_filter").val('default')
-        toggle_month_filter(start_date, end_date);
+        
+        
 
         apply_date_filter(start_date, end_date, acc);
         
@@ -151,13 +123,20 @@ $(document).ready(() => {
 const render_table = async (data, start_date, end_date) => {
 
     $("#transactions_table tbody").empty()
-    $("#transactions_table tbody").append(`<tr id="no_data"  style="display:none;" >
+    $("#transactions_table thead[thead-type=date_filter]").hide()
+    $("#transactions_table ").append(`<tbody name=no_data>
+    <tr id="no_data"  style="display:none;" >
                         <td colspan="8" >No Data Available</td>
-                    </tr>`)
+                    </tr>
+                    </tbody>`)
+                    console.log("data length",data.length)
     if (data.length == 0) {
         $("#no_data").show();
         $("#overlay").hide()
-
+        $("#account_nums")
+        .empty()                           
+        .append(`<option value = default>All Data</option>`)
+        // $("#transactions_table thead[thead-type=date_filter]").empty()
         return true;
     }
 
@@ -167,8 +146,25 @@ const render_table = async (data, start_date, end_date) => {
         if ($.inArray(obj.fields.acc_num, accounts)==-1) {
                 accounts.push(obj.fields.acc_num)
         }
+        var d = new Date(obj.fields.date)
         
-        $("#transactions_table tbody").append(`<tr name="${obj.fields.acc_num}">
+        const final_date = d.toLocaleString('default', { month: 'long' })+'-'+d.getFullYear();
+        if($.inArray(final_date,dates)==-1){
+            dates.push(final_date)
+            $("#transactions_table ").append(
+                `
+                <thead class=thead-light name=${final_date}  thead-type=date_filter>
+                <tr>
+                <th colspan=8>${final_date}</th>
+                </tr>
+                </thead>
+                <tbody id=${final_date}>
+                </tbody>
+                `
+            )
+        }
+
+        $(`#transactions_table #${final_date}`).append(`<tr name="${obj.fields.acc_num}">
                         <td>${obj.pk}</td>
                         <td>${obj.fields.acc_num}</td>
                         <td>${obj.fields.date}</td>
@@ -178,32 +174,24 @@ const render_table = async (data, start_date, end_date) => {
                         <td>${obj.fields.rule}</td>
                         <td>${obj.fields.trans_type_name}</td>
                     </tr>`)
-        var d = new Date(obj.fields.date)
         
-        const final_date = d.toLocaleString('default', { month: 'long' })+'-'+d.getFullYear();
-        if($.inArray(final_date,dates)==-1){
-            dates.push(final_date)
-        }
 
     })
+    dates=[]
     $("#account_nums")
         .empty()                           
         .append(`<option value = default>All Data</option>`)
     
     $(accounts).each((index, obj) => {
+        console.log("This called")
         $("#account_nums").append(`<option value = ${obj}>${obj}</option>`)
-    })
-    $("#month_filter")
-        .empty()                           
-        .append(`<option value = default>All Data</option>`)
-    
-    $(dates).each((index, obj) => {
-        $("#month_filter").append(`<option value = ${obj}>${obj}</option>`)
+        
     })
     
-     toggle_month_filter(start_date, end_date)
+    
+     
      apply_date_filter(start_date, end_date)
-
+     
 
     $("#overlay").hide()
 
@@ -218,6 +206,8 @@ const apply_date_filter = (start_date, end_date, acc_name = 'default')=>{
 
      var rows = '';
      $("#transactions_table tbody tr").hide()
+     $("#transactions_table thead[thead-type=date_filter]").hide()
+     
      if(acc_name==='default'){
         rows = $("#transactions_table tbody tr")
      }
@@ -232,6 +222,7 @@ const apply_date_filter = (start_date, end_date, acc_name = 'default')=>{
         end_date =new Date(end_date)
         console.log(start_date)
         console.log(end_date)
+        dates=[]
             $(rows).each(function(){
         const children = $(this).children()
         if(children.length<3){
@@ -241,7 +232,15 @@ const apply_date_filter = (start_date, end_date, acc_name = 'default')=>{
         var date = $(children)[2].innerHTML;
         date = new Date(date)
         date.setHours(0,0,0,0)
+        
         if(date>=start_date && date<=end_date){
+            const row_date = date.toLocaleString('default', { month: 'long' })+'-'+date.getFullYear();
+        if($.inArray(row_date,dates)==-1){
+            dates.push(row_date)
+            console.log(row_date)
+            $(`#transactions_table thead[name=${row_date}]`).show()
+
+        }
             $(this).show();
             data_exist = true;
         }
@@ -256,24 +255,24 @@ const apply_date_filter = (start_date, end_date, acc_name = 'default')=>{
 }
 
 
-const toggle_month_filter = (start_date, end_date)=>{
-    $("#month_filter option").hide()
-    $("#month_filter option[value=default]").show()
-    start_date = Date.parse(start_date)
-    end_date = Date.parse(end_date)
-    $("#month_filter option").each((index, obj)=>{
-        const value = $(obj).val()
-        if(value==='default'){
-            return;
-        }
-        else{
-         [month, year ] =value.split("-")
+// const toggle_month_filter = (start_date, end_date)=>{
+//     $("#month_filter option").hide()
+//     $("#month_filter option[value=default]").show()
+//     start_date = Date.parse(start_date)
+//     end_date = Date.parse(end_date)
+//     $("#month_filter option").each((index, obj)=>{
+//         const value = $(obj).val()
+//         if(value==='default'){
+//             return;
+//         }
+//         else{
+//          [month, year ] =value.split("-")
 
-         date1 =Date.parse(`${year}-${month}-1`)
-         date2 =Date.parse(`${year}-${month}-31`)
-         if(date2>=start_date && date1<=end_date){
-            $(obj).show()
-         }
-        }
-    })
-}
+//          date1 =Date.parse(`${year}-${month}-1`)
+//          date2 =Date.parse(`${year}-${month}-31`)
+//          if(date2>=start_date && date1<=end_date){
+//             $(obj).show()
+//          }
+//         }
+//     })
+// }

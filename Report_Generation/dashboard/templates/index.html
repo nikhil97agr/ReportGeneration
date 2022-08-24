@@ -84,16 +84,11 @@
                 <tr>
                     <th scope="row" colspan="4" >
                         <p>Select Account Number</p>
-                        <select id="account_nums">
+                        <select id="account_nums1">
                             <option value="default">All Data</option>
                         </select>
                     </th>
-                    <th scope="row" colspan="4">
-                        <p>Select Month</p>
-                        <select id="month_filter">
-                            <option value="default">All Data</option>
-                        </select>
-                    </th>
+                    
                 </tr>
             </thead>
             
@@ -107,18 +102,13 @@
             <table class="table table-bordered table-striped table-dark" id="transactions_table" hidden >
                 <thead class="thead-light">
                     <tr>
-                        <th scope="row" colspan="4" >
+                        <th scope="row" colspan="8" >
                             <p>Select Account Number</p>
                             <select id="account_nums">
                                 <option value="default">All Data</option>
                             </select>
                         </th>
-                        <th scope="row" colspan="4">
-                            <p>Select Month</p>
-                            <select id="month_filter">
-                                <option value="default">All Data</option>
-                            </select>
-                        </th>
+                        
                     </tr>
                 </thead>
                 <thead class="thead-dark">
@@ -133,9 +123,9 @@
                         <th scope="row">Transaction Type Name</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="no_data">
                     <tr>
-                        <td colspan="8" id="no_data">No Data Available</td>
+                        <td colspan="8" >No Data Available</td>
                     </tr>
             
                 </tbody>

@@ -68,12 +68,54 @@
 
 
         </div>
-            <table class="table table-bordered table-striped table-dark" id="transactions_table">
+
+        <div class="button-container">
+            <div class="row" style="text-align: center;">
+                <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                    <button type = "button" id="account_btn">Account State</button>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                    <button type = "button" id="transaction_btn">Transactions</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped table-dark" id="account_state" hidden >
+            <thead class="thead-light">
+                <tr>
+                    <th scope="row" colspan="4" >
+                        <p>Select Account Number</p>
+                        <select id="account_nums">
+                            <option value="default">All Data</option>
+                        </select>
+                    </th>
+                    <th scope="row" colspan="4">
+                        <p>Select Month</p>
+                        <select id="month_filter">
+                            <option value="default">All Data</option>
+                        </select>
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr>
+                    <td colspan="8" id="no_data">No Data Available</td>
+                </tr>
+        
+            </tbody>
+        </table>
+            <table class="table table-bordered table-striped table-dark" id="transactions_table" hidden >
                 <thead class="thead-light">
                     <tr>
-                        <th scope="row" colspan="8">
+                        <th scope="row" colspan="4" >
                             <p>Select Account Number</p>
                             <select id="account_nums">
+                                <option value="default">All Data</option>
+                            </select>
+                        </th>
+                        <th scope="row" colspan="4">
+                            <p>Select Month</p>
+                            <select id="month_filter">
                                 <option value="default">All Data</option>
                             </select>
                         </th>

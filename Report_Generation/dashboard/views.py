@@ -18,7 +18,11 @@ def fetch_transactions(request):
     try:
         data = json.loads(request.body)
         member = data['member_id']
-        transactions = Transaction.objects.filter(mem_num=member)
+        start_date=data['start_date']
+        print(start_date)
+        end_date=data['end_date']
+        transactions = Transaction.objects.filter(mem_num=member).order_by("date")
+        
         if(transactions is None):
             return JsonResponse({"status_code":1}, status=200)
         

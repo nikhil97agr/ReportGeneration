@@ -5,6 +5,7 @@ from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
 
+from dashboard.models.account_state import Account_State
 from dashboard.models.transaction import Transaction
 from dashboard.models.account_state import Account_State
 
@@ -14,25 +15,40 @@ from dashboard.models.account_state import Account_State
 def home(request):
     return render(request, 'index.html')
 
+@csrf_exempt
+def fetch_acc_state(request):
+    try:
+        data = json.loads(request.body)
+        member = data['member_id']
+        acc_state = Account_State.objects.filter(
+            mem_num=member).order_by('date_of_update')
 
+        if(acc_state is None):
+            return JsonResponse({"status_code": 1}, status=200)
+
+        acc_state = serialize('python', acc_state)
+
+        return JsonResponse({"status_code": 0, "acc_state": acc_state}, status=200)
+    except Exception as ex:
+        err_type, value, traceback = sys.exc_info()
+        print('{0} at line {1} in {2}'.format(str(value), str(
+            traceback.tb_lineno), str(traceback.tb_frame.f_code.co_filename)))
+        return JsonResponse({"status_code": -1, "message": "Something went wrong"}, status=500)
+        
 
 @csrf_exempt
 def fetch_transactions(request):
     try:
         data = json.loads(request.body)
         member = data['member_id']
-        start_date=data['start_date']
-        print(start_date)
-        end_date=data['end_date']
         transactions = Transaction.objects.filter(mem_num=member).order_by("date")
         
         if(transactions is None):
             return JsonResponse({"status_code":1}, status=200)
         
         transactions = serialize('python', transactions)
-        
-        accounts_state=Account_State.objects.filter(mem_num=member)        
-        return JsonResponse({"status_code":0, "transactions":transactions, 'accounts_state':accounts_state}, status=200)
+
+        return JsonResponse({"status_code":0, "transactions":transactions}, status=200)
     except Exception as ex:
         err_type, value, traceback = sys.exc_info()
         print('{0} at line {1} in {2}'.format(str(value), str(

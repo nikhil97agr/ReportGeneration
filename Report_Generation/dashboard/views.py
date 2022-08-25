@@ -6,12 +6,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
 
 from dashboard.models.transaction import Transaction
+from dashboard.models.account_state import Account_State
 
 # Create your views here.
 
 
 def home(request):
     return render(request, 'index.html')
+
+
 
 @csrf_exempt
 def fetch_transactions(request):
@@ -27,7 +30,9 @@ def fetch_transactions(request):
             return JsonResponse({"status_code":1}, status=200)
         
         transactions = serialize('python', transactions)
-        return JsonResponse({"status_code":0, "data":transactions}, status=200)
+        
+        accounts_state=Account_State.objects.filter(mem_num=member)        
+        return JsonResponse({"status_code":0, "transactions":transactions, 'accounts_state':accounts_state}, status=200)
     except Exception as ex:
         err_type, value, traceback = sys.exc_info()
         print('{0} at line {1} in {2}'.format(str(value), str(

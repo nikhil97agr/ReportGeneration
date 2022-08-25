@@ -1,4 +1,6 @@
-var mem_prev="";
+
+
+var mem_prev = "";
 
 $(document).ready(() => {
     $("#transaction_btn").click(()=>{
@@ -96,7 +98,7 @@ $(document).ready(() => {
                 
                 statuscode = response.status_code
                 if (statuscode == 0) {
-                    render_table(response.data, start_date, end_date).then(data => { })
+                    render_table(response.transactions, start_date, end_date).then(data => { })
                     .catch(err=>{$("#overlay").hide()
                 console.log(err) })
                 }
@@ -111,6 +113,8 @@ $(document).ready(() => {
                 $("#overlay").hide()
             }
         });
+
+
 
 
     })

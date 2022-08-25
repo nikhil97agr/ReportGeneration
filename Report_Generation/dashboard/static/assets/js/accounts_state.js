@@ -1,31 +1,12 @@
 var mem_prev="";
 
 $(document).ready(() => {
-    $("#transaction_btn").click(()=>{
-        var attr = $('#account_state').attr('hidden');
-        console.log(attr)
-        if(typeof attr !== 'undefined' || attr !== false){
-            $('#account_btn').css('background-color','#607EAA')
-            $("#account_state").attr("hidden",true)
-        }
-        $('#transaction_btn').css('background-color','#00008C')
-        $("#transactions_table").attr("hidden",false)
-    })
-    $("#account_btn").click(()=>{
-        var attr = $('#transactions_table').attr('hidden');
-        console.log(attr)
-        if(typeof attr !== 'undefined' || attr !== false){
-            $('#transaction_btn').css('background-color','#607EAA')
-            $("#transactions_table").attr("hidden",true)
-        }
-        $('#account_btn').css('background-color','#00008C')
-        $("#account_state").attr("hidden",false)
-    })
+    
    
 
-    $("#account_nums").on('change', function () {
+    $("#account_nums1").on('change', function () {
         const acc = $(this).val()
-        $("#transactions_table thead[thead-type=date_filter]").hide()
+        $("#account_state thead[thead-type=date_filter]").hide()
     var end_date=$("#end_date").val();
     var start_date= $("#start_date").val();
     if(start_date ===""){
@@ -74,7 +55,7 @@ $(document).ready(() => {
             
         }
         if(mem_prev===member_id){
-        const acc = $("#account_nums").val()
+        const acc = $("#account_nums1").val()
         
         
 
@@ -96,7 +77,7 @@ $(document).ready(() => {
                 
                 statuscode = response.status_code
                 if (statuscode == 0) {
-                    render_table(response.transactions, start_date, end_date).then(data => { })
+                    render_table(response.account_state, start_date, end_date).then(data => { })
                     .catch(err=>{$("#overlay").hide()
                 console.log(err) })
                 }
@@ -122,9 +103,9 @@ $(document).ready(() => {
 
 const render_table = async (data, start_date, end_date) => {
 
-    $("#transactions_table tbody").empty()
-    $("#transactions_table thead[thead-type=date_filter]").hide()
-    $("#transactions_table ").append(`<tbody name=no_data>
+    $("#account_state tbody").empty()
+    $("#account_state thead[thead-type=date_filter]").hide()
+    $("#account_state ").append(`<tbody name=no_data>
     <tr id="no_data"  style="display:none;" >
                         <td colspan="8" >No Data Available</td>
                     </tr>
@@ -133,7 +114,7 @@ const render_table = async (data, start_date, end_date) => {
     if (data.length == 0) {
         $("#no_data").show();
         $("#overlay").hide()
-        $("#account_nums")
+        $("#account_nums1")
         .empty()                           
         .append(`<option value = default>All Data</option>`)
         // $("#transactions_table thead[thead-type=date_filter]").empty()
@@ -143,15 +124,15 @@ const render_table = async (data, start_date, end_date) => {
     accounts = []
     dates=[]
     $(data).each((index, obj) => {
-        if ($.inArray(obj.fields.acc_num, accounts)==-1) {
-                accounts.push(obj.fields.acc_num)
+        if ($.inArray(obj.fields.account_number, accounts)==-1) {
+                accounts.push(obj.fields.account_number)
         }
-        var d = new Date(obj.fields.date)
+        var d = new Date(obj.fields.date_of_update)
         
         const final_date = d.toLocaleString('default', { month: 'long' })+'-'+d.getFullYear();
         if($.inArray(final_date,dates)==-1){
             dates.push(final_date)
-            $("#transactions_table ").append(
+            $("#account_state ").append(
                 `
                 <thead class=thead-light name=${final_date}  thead-type=date_filter>
                 <tr>
@@ -164,27 +145,33 @@ const render_table = async (data, start_date, end_date) => {
             )
         }
 
-        $(`#transactions_table #${final_date}`).append(`<tr name="${obj.fields.acc_num}">
+        $(`#account_state #${final_date}`).append(`<tr name="${obj.fields.account_number}">
                         <td>${obj.pk}</td>
-                        <td>${obj.fields.acc_num}</td>
-                        <td>${obj.fields.date}</td>
-                        <td>${obj.fields.amount}</td>
-                        <td>${obj.fields.crdr}</td>
-                        <td>${obj.fields.transaction_type}</td>
-                        <td>${obj.fields.rule}</td>
-                        <td>${obj.fields.trans_type_name}</td>
+                        <td>${obj.fields.account_number}</td>
+                        <td>${obj.fields.date_of_update}</td>
+                        <td>${obj.fields.balance_ob}</td>
+                        <td>${obj.fields.due}</td>
+                        <td>${obj.fields.Overdue_OB}</td> 
+                        <td>${obj.fields.PenalCharge}</td>
+                        <td>${obj.fields.TotalCharge}</td>
+                        <td>${obj.fields.TransferIn_CB}</td> 
+                        <td>${obj.fields.TransferOut_CB}</td> 
+                        <td>${obj.fields.balance_cb}</td>
+                        <td>${obj.fields.Overdue_CB}</td>
+
+
                     </tr>`)
         
 
     })
     dates=[]
-    $("#account_nums")
+    $("#account_nums1")
         .empty()                           
         .append(`<option value = default>All Data</option>`)
     
     $(accounts).each((index, obj) => {
         console.log("This called")
-        $("#account_nums").append(`<option value = ${obj}>${obj}</option>`)
+        $("#account_nums1").append(`<option value = ${obj}>${obj}</option>`)
         
     })
     
@@ -205,14 +192,14 @@ const render_table = async (data, start_date, end_date) => {
 const apply_date_filter = (start_date, end_date, acc_name = 'default')=>{
 
      var rows = '';
-     $("#transactions_table tbody tr").hide()
-     $("#transactions_table thead[thead-type=date_filter]").hide()
+     $("#account_state tbody tr").hide()
+     $("#account_state thead[thead-type=date_filter]").hide()
      
      if(acc_name==='default'){
-        rows = $("#transactions_table tbody tr")
+        rows = $("#account_state tbody tr")
      }
      else{
-       rows =  $(`#transactions_table tbody tr[name=${acc_name}]`)
+       rows =  $(`#account_state tbody tr[name=${acc_name}]`)
 
 
      }
@@ -238,8 +225,8 @@ const apply_date_filter = (start_date, end_date, acc_name = 'default')=>{
         if($.inArray(row_date,dates)==-1){
             dates.push(row_date)
             console.log(row_date)
-            $(`#transactions_table thead[name=${row_date}]`).show()
-
+            $(`#account_state thead[name=${row_date}]`).show()
+ 
         }
             $(this).show();
             data_exist = true;

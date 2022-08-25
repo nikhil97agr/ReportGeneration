@@ -5,6 +5,7 @@ from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
 
+from dashboard.models.account_state import Account_State
 from dashboard.models.transaction import Transaction
 
 # Create your views here.
@@ -27,7 +28,9 @@ def fetch_transactions(request):
             return JsonResponse({"status_code":1}, status=200)
         
         transactions = serialize('python', transactions)
-        return JsonResponse({"status_code":0, "data":transactions}, status=200)
+        account_state=Account_State.objects.filter(mem_num=member).order_by("date_ren_ob")
+        account_states=serialize('python',account_state)
+        return JsonResponse({"status_code":0, "transactions":transactions,"account_state":account_states}, status=200)
     except Exception as ex:
         err_type, value, traceback = sys.exc_info()
         print('{0} at line {1} in {2}'.format(str(value), str(

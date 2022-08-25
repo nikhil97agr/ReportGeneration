@@ -1,4 +1,5 @@
-var mem_prev="";
+var mem_prev_acc_state = "";
+var acc_data_fetch = false;
 
 $(document).ready(() => {
     
@@ -23,19 +24,18 @@ $(document).ready(() => {
        
     
         if (acc === 'default') {
-            apply_date_filter(start_date, end_date)
+            apply_date_filter_acc_state(start_date, end_date)
             // $("#transactions_table tbody tr").show()
         }
         else {
             // $("#transactions_table tbody tr").hide()
-            apply_date_filter(start_date, end_date, acc);
+            apply_date_filter_acc_state(start_date, end_date, acc);
             // $(`#transactions_table tbody tr[name=${acc}]`).show()
         }
     })
     
     $("#search").click(() => {
         const member_id = $("#member_id").val();
-        
         var start_date= $("#start_date").val();
         var end_date=$("#end_date").val();
         if(start_date ===""){
@@ -54,19 +54,20 @@ $(document).ready(() => {
             return;
             
         }
-        if(mem_prev===member_id){
+        if(mem_prev_acc_state===member_id){
         const acc = $("#account_nums1").val()
         
         
 
-        apply_date_filter(start_date, end_date, acc);
+        apply_date_filter_acc_state(start_date, end_date, acc);
         
             return;
         }
-        mem_prev=member_id;
-        
+        mem_prev_acc_state=member_id;
+        acc_data_fetch = false;
         $("#overlay").show()
-        const url = $("#url").val()
+        const url = $("#acc_url").val()
+        console.log(url)
         $.ajax({
             type: "POST",
             url: url,
@@ -77,7 +78,8 @@ $(document).ready(() => {
                 
                 statuscode = response.status_code
                 if (statuscode == 0) {
-                    render_table(response.account_state, start_date, end_date).then(data => { })
+                    console.log(response.acc_state)
+                    render_accounts_state_table(response.acc_state, start_date, end_date).then(data => { })
                     .catch(err=>{$("#overlay").hide()
                 console.log(err) })
                 }
@@ -101,18 +103,19 @@ $(document).ready(() => {
 });
 
 
-const render_table = async (data, start_date, end_date) => {
+const render_accounts_state_table = async (data, start_date, end_date) => {
 
     $("#account_state tbody").empty()
     $("#account_state thead[thead-type=date_filter]").hide()
     $("#account_state ").append(`<tbody name=no_data>
     <tr id="no_data"  style="display:none;" >
-                        <td colspan="8" >No Data Available</td>
+                        <td colspan="12" >No Data Available</td>
                     </tr>
                     </tbody>`)
-                    console.log("data length",data.length)
+    acc_data_fetch = true
     if (data.length == 0) {
         $("#no_data").show();
+        if(transaction_data_fetch && acc_data_fetch)
         $("#overlay").hide()
         $("#account_nums1")
         .empty()                           
@@ -136,7 +139,7 @@ const render_table = async (data, start_date, end_date) => {
                 `
                 <thead class=thead-light name=${final_date}  thead-type=date_filter>
                 <tr>
-                <th colspan=8>${final_date}</th>
+                <th colspan=12>${final_date}</th>
                 </tr>
                 </thead>
                 <tbody id=${final_date}>
@@ -170,16 +173,15 @@ const render_table = async (data, start_date, end_date) => {
         .append(`<option value = default>All Data</option>`)
     
     $(accounts).each((index, obj) => {
-        console.log("This called")
         $("#account_nums1").append(`<option value = ${obj}>${obj}</option>`)
         
     })
     
     
      
-     apply_date_filter(start_date, end_date)
+     apply_date_filter_acc_state(start_date, end_date)
      
-
+    if(transaction_data_fetch && acc_data_fetch)
     $("#overlay").hide()
 
   
@@ -189,7 +191,7 @@ const render_table = async (data, start_date, end_date) => {
     
 }
 
-const apply_date_filter = (start_date, end_date, acc_name = 'default')=>{
+const apply_date_filter_acc_state = (start_date, end_date, acc_name = 'default')=>{
 
      var rows = '';
      $("#account_state tbody tr").hide()
@@ -207,8 +209,6 @@ const apply_date_filter = (start_date, end_date, acc_name = 'default')=>{
      var data_exist = false;
      start_date = new Date(start_date)
         end_date =new Date(end_date)
-        console.log(start_date)
-        console.log(end_date)
         dates=[]
             $(rows).each(function(){
         const children = $(this).children()
@@ -224,7 +224,6 @@ const apply_date_filter = (start_date, end_date, acc_name = 'default')=>{
             const row_date = date.toLocaleString('default', { month: 'long' })+'-'+date.getFullYear();
         if($.inArray(row_date,dates)==-1){
             dates.push(row_date)
-            console.log(row_date)
             $(`#account_state thead[name=${row_date}]`).show()
  
         }

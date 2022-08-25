@@ -62,7 +62,7 @@
                 </div>
                 <div>
                     <input type="text" id="url" value="{% url 'fetch-transactions' %}" disabled hidden>
-                    <input type="text" id="acc_state_url" value="{% url 'fetch-accounts-state' %}" disabled hidden>
+                    <input type="text" id="acc_url" value="{% url 'fetch-acc-state' %}" disabled hidden>
                     <button type="button" id="search">Search</button>
                 </div>
             </form>
@@ -89,29 +89,46 @@
                             <option value="default">All Data</option>
                         </select>
                     </th>
-                    
+
                 </tr>
             </thead>
             <thead class="thead-dark">
+
                 <tr>
+
                     <th scope="row">Id</th>
+
                     <th scope="row">Account Number</th>
+
                     <th scope="row">Date</th>
+
                     <th scope="row">Opening Balance</th>
+
                     <th scope="row">DUE</th>
+
                     <th scope="row">Overdue</th>
+
                     <th scope="row">Penal Charge</th>
+
                     <th scope="row">Total Charge</th>
+
                     <th scope="row">Total Transfer In</th>
+
                     <th scope="row">Total Transfer Out</th>
+
                     <th scope="row">Closing Balance</th>
+
                     <th scope="row">Overdue Closing</th>
-                    
+
+                   
+
                 </tr>
+
             </thead>
+            
             <tbody>
                 <tr>
-                    <td colspan="8" id="no_data">No Data Available</td>
+                    <td colspan="12" id="no_data">No Data Available</td>
                 </tr>
         
             </tbody>
@@ -125,7 +142,7 @@
                                 <option value="default">All Data</option>
                             </select>
                         </th>
-                        
+
                     </tr>
                 </thead>
                 <thead class="thead-dark">
@@ -140,9 +157,9 @@
                         <th scope="row">Transaction Type Name</th>
                     </tr>
                 </thead>
-                <tbody id="no_data">
+                <tbody>
                     <tr>
-                        <td colspan="8" >No Data Available</td>
+                        <td colspan="8" id="no_data">No Data Available</td>
                     </tr>
             
                 </tbody>
@@ -154,6 +171,7 @@
     <script src=" {% static 'assets/js/jquery.validate.min.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     <script src="{% static 'assets/js/index.js' %}"></script>
+    <script src="{% static 'assets/js/accounts_state.js' %}"></script>
 </body>
 
 </html>

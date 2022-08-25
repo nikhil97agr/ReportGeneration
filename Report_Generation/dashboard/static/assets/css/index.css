@@ -8,10 +8,10 @@
 }
 
 .login-form-container{
-    width: 50%;
+    width: 100%;
     height: fit-content;
     background-color: #F9F5EB;
-    margin:50px 0 0 300px;
+    margin:50px 5px 30px 5px;
     border-radius: 30px;
     padding-bottom: 20px;
 
@@ -21,7 +21,7 @@ img{
     display: inline;
 }
 
-.login-icon{
+.form-container{
      display: flex;
     justify-content: center;
     align-items: center;
@@ -66,12 +66,12 @@ label{
 }
 
 button{
-    border-radius: 30px;
+    border-radius: 1rem;
     width: 40%;
     color: white;
     background-color:#607EAA ;
     font-weight: 600;
-    font-size: larger;
+    font-size: 1.25rem;
 }
 hr{
     border: 1px solid #607EAA;
@@ -119,4 +119,16 @@ table{
 
 tr{
     white-space: nowrap;
+}
+
+.user-detail-container{
+    display: flex;
+}
+
+.user-detail-container div{
+    width: 100%;
+}
+
+h5 span{
+    color: blue;
 }

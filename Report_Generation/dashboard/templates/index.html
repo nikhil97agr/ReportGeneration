@@ -39,51 +39,119 @@
     </div>
 
     <div class="top-container">
-        <div class="login-form-container">
-            <div class="login-icon">
-                <h3>Details</h3>
-            </div>
+        <div class="row">
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+                <div class="login-form-container">
 
-            <form>
-                <div>
-                    <label for="member_id">Member Id</label>
+                    <div class="login-icon">
+                        <h3>Details</h3>
+                    </div>
+                    <form>
+                        <div>
+                            <label for="member_id">Member Id</label>
+                            <input type="text" id="member_id" name="member_id" placeholder="Member Id" />
+                            </div>
+                            <div>
+                                <label for="start_date">Start Date</label>
+                                <input type="date" id="start_date" name="start_date" />
+                            </div>
+                            <div>
+                                <label for="end_date">End Date</label>
 
-                    <input type="text" id="member_id" name="member_id" placeholder="Member Id" />
+                            <input type="date" id="end_date" name="end_date" />
+
+                        </div>
+                        <div>
+                            <input type="text" id="url" value="{% url 'fetch-transactions' %}" disabled hidden>
+                            <input type="text" id="acc_url" value="{% url 'fetch-acc-state' %}" disabled hidden>
+                            <input type="text" id="user_url" value="{% url 'fetch-user' %}" disabled hidden>
+                            <button type="button" id="search">Search</button>
+                            </div>
+                            </form>
                 </div>
-                <div>
-                    <label for="start_date">Start Date</label>
-                    <input type="date" id="start_date" name="start_date" />
                 </div>
-                <div>
-                    <label for="end_date">End Date</label>
-
-                    <input type="date" id="end_date" name="end_date" />
-
-                </div>
-                <div>
-                    <input type="text" id="url" value="{% url 'fetch-transactions' %}" disabled hidden>
-                    <input type="text" id="acc_url" value="{% url 'fetch-acc-state' %}" disabled hidden>
-                    <button type="button" id="search">Search</button>
-                </div>
-            </form>
-
-
-        </div>
+                <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+                    <div class="login-form-container">
+                
+                        <div class="form-container">
+                            <h3>User Details</h3>
+                        </div>
+                        <hr>
+                        <div class="user-detail-container">
+                            <div>
+                                <h5>Member Number: <span id="mem_num_disp">-</span></h5>
+                            </div>
+                            <div>
+                                <h5>Name: <span id="name">-</span></h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="user-detail-container">
+                            <div>
+                                <h5>Reg. Mobile No.: <span id="reg_mob_num">-</span></h5>
+                            </div>
+                            <div>
+                                <h5>Date of Signup: <span id="date_sign_up">-</span></h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="user-detail-container">
+                            <div>
+                                <h5>Address: <span id="address">-</span>
+                                </h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="user-detail-container">
+                            <div>
+                                <h5>Whatsapp Mobile: <span id="whatsapp_mobile">-</span></h5>
+                            </div>
+                            <div>
+                                <h5>Field Officer: <span id="field_officer">-</span></h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="user-detail-container">
+                            <div>
+                                <h5>Group Number <span id="group_number">-</span></h5>
+                            </div>
+                            <div>
+                                <h5>Group Name: <span id="group_name">-</span></h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="user-detail-container">
+                            <div>
+                                <h5>Center: <span id="center">-</span></h5>
+                            </div>
+                            <div>
+                                <h5>Branch: <span id="branch">-</span></h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="user-detail-container">
+                            <div>
+                                <h5>Community: <span id="community">-</span></h5>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
 
         <div class="button-container">
             <div class="row" style="text-align: center;">
                 <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
-                    <button type = "button" id="account_btn">Account State</button>
+                    <button type="button" id="account_btn">Account State</button>
                 </div>
                 <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
-                    <button type = "button" id="transaction_btn">Transactions</button>
+                    <button type="button" id="transaction_btn">Transactions</button>
                 </div>
             </div>
         </div>
-        <table class="table table-bordered table-striped table-dark" id="account_state" hidden >
+        <table class="table table-bordered table-striped table-dark" id="account_state" hidden>
             <thead class="thead-light">
                 <tr>
-                    <th scope="row" colspan="12" >
+                    <th scope="row" colspan="12">
                         <p>Select Account Number</p>
                         <select id="account_nums1">
                             <option value="default">All Data</option>
@@ -120,30 +188,30 @@
 
                     <th scope="row">Overdue Closing</th>
 
-                   
+
 
                 </tr>
 
             </thead>
-            
+
             <tbody>
                 <tr>
                     <td colspan="12" id="no_data">No Data Available</td>
                 </tr>
-        
+
             </tbody>
         </table>
-            <table class="table table-bordered table-striped table-dark" id="transactions_table" hidden >
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="row" colspan="8" >
-                            <p>Select Account Number</p>
-                            <select id="account_nums">
-                                <option value="default">All Data</option>
-                            </select>
-                        </th>
+        <table class="table table-bordered table-striped table-dark" id="transactions_table" hidden>
+            <thead class="thead-light">
+                <tr>
+                    <th scope="row" colspan="8">
+                        <p>Select Account Number</p>
+                        <select id="account_nums">
+                            <option value="default">All Data</option>
+                        </select>
+                    </th>
 
-                    </tr>
+                </tr>
                 </thead>
                 <thead class="thead-dark">
                     <tr>
@@ -161,9 +229,9 @@
                     <tr>
                         <td colspan="8" id="no_data">No Data Available</td>
                     </tr>
-            
+                
                 </tbody>
-            </table>
+                </table>
 
     </div>
 
@@ -172,6 +240,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     <script src="{% static 'assets/js/index.js' %}"></script>
     <script src="{% static 'assets/js/accounts_state.js' %}"></script>
+    <script src="{% static 'assets/js/user_detail.js' %}"></script>
 </body>
 
 </html>

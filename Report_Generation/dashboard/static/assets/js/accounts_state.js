@@ -49,7 +49,6 @@ $(document).ready(() => {
         }
 
         if (member_id.trim() === "" ) {
-            alert("Member ID required");
             
             return;
             
@@ -67,7 +66,6 @@ $(document).ready(() => {
         acc_data_fetch = false;
         $("#overlay").show()
         const url = $("#acc_url").val()
-        console.log(url)
         $.ajax({
             type: "POST",
             url: url,
@@ -78,7 +76,6 @@ $(document).ready(() => {
                 
                 statuscode = response.status_code
                 if (statuscode == 0) {
-                    console.log(response.acc_state)
                     render_accounts_state_table(response.acc_state, start_date, end_date).then(data => { })
                     .catch(err=>{$("#overlay").hide()
                 console.log(err) })

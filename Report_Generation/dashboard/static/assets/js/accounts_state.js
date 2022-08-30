@@ -112,7 +112,7 @@ const render_accounts_state_table = async (data, start_date, end_date) => {
     acc_data_fetch = true
     if (data.length == 0) {
         $("#no_data").show();
-        if(transaction_data_fetch && acc_data_fetch)
+        if(transaction_data_fetch && acc_data_fetch && acc_fetch)
         $("#overlay").hide()
         $("#account_nums1")
         .empty()                           
@@ -178,7 +178,7 @@ const render_accounts_state_table = async (data, start_date, end_date) => {
      
      apply_date_filter_acc_state(start_date, end_date)
      
-    if(transaction_data_fetch && acc_data_fetch)
+    if(transaction_data_fetch && acc_data_fetch && acc_fetch)
     $("#overlay").hide()
 
   

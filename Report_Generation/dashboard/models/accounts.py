@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Account(models.Model):
-    acc_number=models.CharField(max_length=20,db_column="AccountNumber")
+    acc_number=models.CharField(primary_key=True,max_length=20,db_column="AccountNumber")
     acc_type=models.CharField(max_length=20,db_column="AccountType")
     acc_num_vir=models.CharField(max_length=20,db_column="AcctNum_Virtual")
     cot_pay_gl=models.FloatField(db_column="COT_Pay_GL")

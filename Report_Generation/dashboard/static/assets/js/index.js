@@ -7,7 +7,9 @@ $(document).ready(() => {
     $("#transaction_btn").click(()=>{
         var attr = $('#account_state').attr('hidden');
         if(typeof attr !== 'undefined' || attr !== false){
-            $('#account_btn').css('background-color','#607EAA')
+            $('#account_btn').css('background-color', '#607EAA')
+            $('#all_acc_btn').css('background-color','#607EAA')
+            $("#accounts_table").attr("hidden", true)
             $("#account_state").attr("hidden",true)
         }
         $('#transaction_btn').css('background-color','#00008C')
@@ -16,11 +18,24 @@ $(document).ready(() => {
     $("#account_btn").click(()=>{
         var attr = $('#transactions_table').attr('hidden');
         if(typeof attr !== 'undefined' || attr !== false){
-            $('#transaction_btn').css('background-color','#607EAA')
-            $("#transactions_table").attr("hidden",true)
+            $('#transaction_btn').css('background-color', '#607EAA')
+            $('#all_acc_btn').css('background-color','#607EAA')
+            $("#transactions_table").attr("hidden", true)
+            $("#accounts_table").attr("hidden",true)
         }
         $('#account_btn').css('background-color','#00008C')
         $("#account_state").attr("hidden",false)
+    })
+    $("#all_acc_btn").click(() => {
+        var attr = $('#accounts_table').attr('hidden');
+        if (typeof attr !== 'undefined' || attr !== false) {
+            $('#transaction_btn').css('background-color', '#607EAA')
+            $('#account_btn').css('background-color', '#607EAA')
+            $("#transactions_table").attr("hidden", true)
+            $("#account_state").attr("hidden", true)
+        }
+        $('#all_acc_btn').css('background-color', '#00008C')
+        $("#accounts_table").attr("hidden", false)
     })
    
 
@@ -136,7 +151,7 @@ const render_table = async (data, start_date, end_date) => {
     transaction_data_fetch = true;
     if (data.length == 0) {
         $("#no_data").show();
-        if(transaction_data_fetch && acc_data_fetch)
+        if(transaction_data_fetch && acc_data_fetch && acc_fetch)
             $("#overlay").hide()
         $("#account_nums")
         .empty()                           
@@ -196,7 +211,7 @@ const render_table = async (data, start_date, end_date) => {
      
      apply_date_filter(start_date, end_date)
      
-    if(transaction_data_fetch && acc_data_fetch)
+    if(transaction_data_fetch && acc_data_fetch && acc_fetch)
     $("#overlay").hide()
 
   

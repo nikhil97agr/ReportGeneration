@@ -64,6 +64,7 @@
                         <div>
                             <input type="text" id="url" value="{% url 'fetch-transactions' %}" disabled hidden>
                             <input type="text" id="acc_url" value="{% url 'fetch-acc-state' %}" disabled hidden>
+                            <input type="text" id="accounts_url" value="{% url 'fetch-acc' %}" disabled hidden>
                             <input type="text" id="user_url" value="{% url 'fetch-user' %}" disabled hidden>
                             <button type="button" id="search">Search</button>
                             </div>
@@ -71,7 +72,7 @@
                 </div>
                 </div>
                 <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
-                    <div class="login-form-container">
+                    <div class="login-form-container" id="login-form-container">
                 
                         <div class="form-container">
                             <h3>User Details</h3>
@@ -140,14 +141,57 @@
 
         <div class="button-container">
             <div class="row" style="text-align: center;">
-                <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
+                    <button type="button" id="all_acc_btn">Accounts</button>
+                </div>
+                <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
                     <button type="button" id="account_btn">Account State</button>
                 </div>
-                <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6">
+                <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
                     <button type="button" id="transaction_btn">Transactions</button>
                 </div>
+                
             </div>
         </div>
+<table class="table table-bordered table-striped table-dark" id="accounts_table" hidden>
+
+    <thead class="thead-dark">
+
+        <tr>
+
+            <th scope="row">Member Number</th>
+
+            <th scope="row">Account Number</th>
+            <th scope="row">Date of Opening</th>
+
+            <th scope="row">Account Type</th>
+
+            <th scope="row">Member Type</th>
+
+            <th scope="row">Virtual Account No.</th>
+
+            <th scope="row">IFSC</th>
+
+            <th scope="row">Loan Amount</th>
+
+            <th scope="row">Tenure</th>
+
+
+
+
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+        <tr>
+            <td colspan="9" id="no_data">No Data Available</td>
+        </tr>
+
+    </tbody>
+</table>
+
         <table class="table table-bordered table-striped table-dark" id="account_state" hidden>
             <thead class="thead-light">
                 <tr>
@@ -241,6 +285,7 @@
     <script src="{% static 'assets/js/index.js' %}"></script>
     <script src="{% static 'assets/js/accounts_state.js' %}"></script>
     <script src="{% static 'assets/js/user_detail.js' %}"></script>
+    <script src="{% static 'assets/js/accounts.js' %}"></script>
 </body>
 
 </html>

@@ -83,6 +83,10 @@ button:hover{
 
 }
 
+.button-container .row div button{
+width: 60%;
+}
+
 a{
     padding: 0 20px;
     color: black;
@@ -131,4 +135,8 @@ tr{
 
 h5 span{
     color: blue;
+}
+
+#login-form-container div{
+    padding:0px;
 }

@@ -1,15 +1,20 @@
 import json
+from logging.handlers import MemoryHandler
+from re import M
+from statistics import mode
 import sys
 from django.shortcuts import render
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
+from django.db.models.query import QuerySet
 
 from dashboard.models.account_state import Account_State
 from dashboard.models.transaction import Transaction
 from dashboard.models.account_state import Account_State
 from dashboard.models.user import User
 from dashboard.models.accounts import Account
+from datetime import date
 
 # Create your views here.
 
@@ -17,6 +22,48 @@ from dashboard.models.accounts import Account
 def home(request):
     return render(request, 'index.html')
 
+def filter_transactions(acc_state_date : date, transactions):
+    filtered_transaction = [transaction for transaction in transactions if (acc_state_date.month == transaction['date'].month and acc_state_date.year == transaction['date'].year)]
+    return filtered_transaction
+
+
+
+@csrf_exempt
+def fetch_accounts_transaction(request):
+    try:
+        data = json.loads(request.body)
+        member_id = data['member_id']
+        acc_state = Account_State.objects.filter(
+            mem_num=member_id).order_by('date_of_update')
+        transaction = Transaction.objects.filter(mem_num=member_id).order_by('date')
+    
+        acc_state_list = acc_state.values()
+        transaction_list = transaction.values()
+        distinct_acc = list(set([acc['account_number'] for acc in acc_state_list]))
+        
+        data = {acc: 
+            {"data": 
+                {
+                    str(ele['date_of_update']): 
+                        [ele, filter_transactions(
+                            ele['date_of_update'], transaction_list)]
+                for ele in acc_state_list if ele['account_number']==acc
+            
+            
+        }} for acc in distinct_acc}
+        
+        
+        
+        # Transaction
+
+        return JsonResponse({"status_code":0, "data":data})
+    except:
+        err_type, value, traceback = sys.exc_info()
+        print('{0} at line {1} in {2}'.format(str(value), str(
+            traceback.tb_lineno), str(traceback.tb_frame.f_code.co_filename)))
+        return JsonResponse({"status_code": -1, "message": "Something went wrong"}, status=500)
+
+        
 
 @csrf_exempt
 def fetch_user_details(request):

@@ -8,9 +8,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'assets/css/title.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/loader.css' %}" />
+    <!-- <link rel="stylesheet" href="{% static 'assets/css/fa.css' %}" /> -->
 </head>
 
 <body>
@@ -50,13 +52,13 @@
                         <div>
                             <label for="member_id">Member Id</label>
                             <input type="text" id="member_id" name="member_id" placeholder="Member Id" />
-                            </div>
-                            <div>
-                                <label for="start_date">Start Date</label>
-                                <input type="date" id="start_date" name="start_date" />
-                            </div>
-                            <div>
-                                <label for="end_date">End Date</label>
+                        </div>
+                        <div>
+                            <label for="start_date">Start Date</label>
+                            <input type="date" id="start_date" name="start_date" />
+                        </div>
+                        <div>
+                            <label for="end_date">End Date</label>
 
                             <input type="date" id="end_date" name="end_date" />
 
@@ -66,131 +68,135 @@
                             <input type="text" id="acc_url" value="{% url 'fetch-acc-state' %}" disabled hidden>
                             <input type="text" id="accounts_url" value="{% url 'fetch-acc' %}" disabled hidden>
                             <input type="text" id="user_url" value="{% url 'fetch-user' %}" disabled hidden>
+                            <input type="text" id="all_details_url" value="{% url 'fetch-all' %}" disabled hidden>
                             <button type="button" id="search">Search</button>
-                            </div>
-                            </form>
+                        </div>
+                        </form>
                 </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+                <div class="login-form-container" id="login-form-container">
+            
+                    <div class="form-container">
+                        <h3>User Details</h3>
+                    </div>
+                    <hr>
+                    <div class="user-detail-container">
+                        <div>
+                            <h5>Member Number: <span id="mem_num_disp">-</span></h5>
+                        </div>
+                        <div>
+                            <h5>Name: <span id="name">-</span></h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="user-detail-container">
+                        <div>
+                            <h5>Reg. Mobile No.: <span id="reg_mob_num">-</span></h5>
+                        </div>
+                        <div>
+                            <h5>Date of Signup: <span id="date_sign_up">-</span></h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="user-detail-container">
+                        <div>
+                            <h5>Address: <span id="address">-</span>
+                            </h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="user-detail-container">
+                        <div>
+                            <h5>Whatsapp Mobile: <span id="whatsapp_mobile">-</span></h5>
+                        </div>
+                        <div>
+                            <h5>Field Officer: <span id="field_officer">-</span></h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="user-detail-container">
+                        <div>
+                            <h5>Group Number <span id="group_number">-</span></h5>
+                        </div>
+                        <div>
+                            <h5>Group Name: <span id="group_name">-</span></h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="user-detail-container">
+                        <div>
+                            <h5>Center: <span id="center">-</span></h5>
+                        </div>
+                        <div>
+                            <h5>Branch: <span id="branch">-</span></h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="user-detail-container">
+                        <div>
+                            <h5>Community: <span id="community">-</span></h5>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
-                    <div class="login-form-container" id="login-form-container">
-                
-                        <div class="form-container">
-                            <h3>User Details</h3>
-                        </div>
-                        <hr>
-                        <div class="user-detail-container">
-                            <div>
-                                <h5>Member Number: <span id="mem_num_disp">-</span></h5>
-                            </div>
-                            <div>
-                                <h5>Name: <span id="name">-</span></h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="user-detail-container">
-                            <div>
-                                <h5>Reg. Mobile No.: <span id="reg_mob_num">-</span></h5>
-                            </div>
-                            <div>
-                                <h5>Date of Signup: <span id="date_sign_up">-</span></h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="user-detail-container">
-                            <div>
-                                <h5>Address: <span id="address">-</span>
-                                </h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="user-detail-container">
-                            <div>
-                                <h5>Whatsapp Mobile: <span id="whatsapp_mobile">-</span></h5>
-                            </div>
-                            <div>
-                                <h5>Field Officer: <span id="field_officer">-</span></h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="user-detail-container">
-                            <div>
-                                <h5>Group Number <span id="group_number">-</span></h5>
-                            </div>
-                            <div>
-                                <h5>Group Name: <span id="group_name">-</span></h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="user-detail-container">
-                            <div>
-                                <h5>Center: <span id="center">-</span></h5>
-                            </div>
-                            <div>
-                                <h5>Branch: <span id="branch">-</span></h5>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="user-detail-container">
-                            <div>
-                                <h5>Community: <span id="community">-</span></h5>
-                            </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
+            </div>
+            </div>
 
         <div class="button-container">
             <div class="row" style="text-align: center;">
-                <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
+                <div class="col-lg-3 col-sm-12 col-xs-12 col-md-3">
                     <button type="button" id="all_acc_btn">Accounts</button>
                 </div>
-                <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
+                <div class="col-lg-3 col-sm-12 col-xs-12 col-md-3">
                     <button type="button" id="account_btn">Account State</button>
                 </div>
-                <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
+                <div class="col-lg-3 col-sm-12 col-xs-12 col-md-3">
                     <button type="button" id="transaction_btn">Transactions</button>
                 </div>
-                
+                <div class="col-lg-3 col-sm-12 col-xs-12 col-md-3">
+                    <button type="button" id="acc_state_trans_btn">Account State and Transactions</button>
+                </div>
+
             </div>
         </div>
-<table class="table table-bordered table-striped table-dark" id="accounts_table" hidden>
+        <table class="table table-bordered table-striped table-dark" id="accounts_table" hidden>
 
-    <thead class="thead-dark">
+            <thead class="thead-dark">
 
-        <tr>
+                <tr>
 
-            <th scope="row">Member Number</th>
+                    <th scope="row">Member Number</th>
 
-            <th scope="row">Account Number</th>
-            <th scope="row">Date of Opening</th>
+                    <th scope="row">Account Number</th>
+                    <th scope="row">Date of Opening</th>
 
-            <th scope="row">Account Type</th>
+                    <th scope="row">Account Type</th>
 
-            <th scope="row">Member Type</th>
+                    <th scope="row">Member Type</th>
 
-            <th scope="row">Virtual Account No.</th>
+                    <th scope="row">Virtual Account No.</th>
 
-            <th scope="row">IFSC</th>
+                    <th scope="row">IFSC</th>
 
-            <th scope="row">Loan Amount</th>
+                    <th scope="row">Loan Amount</th>
 
-            <th scope="row">Tenure</th>
-
-
+                    <th scope="row">Tenure</th>
 
 
 
-        </tr>
 
-    </thead>
 
-    <tbody>
-        <tr>
-            <td colspan="9" id="no_data">No Data Available</td>
-        </tr>
+                </tr>
 
-    </tbody>
-</table>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td colspan="9" id="no_data">No Data Available</td>
+                </tr>
+
+            </tbody>
+            </table>
 
         <table class="table table-bordered table-striped table-dark" id="account_state" hidden>
             <thead class="thead-light">
@@ -256,27 +262,90 @@
                     </th>
 
                 </tr>
-                </thead>
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="row">Id</th>
-                        <th scope="row">Account Number</th>
-                        <th scope="row">Date</th>
-                        <th scope="row">Amount</th>
-                        <th scope="row">CRDR</th>
-                        <th scope="row">Transaction Type</th>
-                        <th scope="row">Rule</th>
-                        <th scope="row">Transaction Type Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="8" id="no_data">No Data Available</td>
-                    </tr>
-                
-                </tbody>
-                </table>
+            </thead>
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="row">Id</th>
+                    <th scope="row">Account Number</th>
+                    <th scope="row">Date</th>
+                    <th scope="row">Amount</th>
+                    <th scope="row">CRDR</th>
+                    <th scope="row">Transaction Type</th>
+                    <th scope="row">Rule</th>
+                    <th scope="row">Transaction Type Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="8" id="no_data">No Data Available</td>
+                </tr>
+            
+            </tbody>
+            </table>
 
+        <div id="acc_state_trans">
+            <!-- <div class="row">
+                        <div class="col-lg-1 col-md-1"></div>
+                        <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                            <label id="account_name"><i class="fa fa-angle-right">Account Name</i></label>
+                            <div id="account_name_year" name="year">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-1"></div>
+                                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                                        <label id="account_name_2020"><i class="fa fa-angle-right">2020</i></label>
+                                        <div id="account_name_2020_month" name="month">
+                                            <div class="row">
+                                                <div class="col-lg-1 col-md-1"></div>
+                                                <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                                                    <label>Month 1</label>
+                
+                                                </div>
+                                            </div>
+                
+                                            <div class="row">
+                                                <div class="col-lg-1 col-md-1"></div>
+                                                <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                                                    <label>Month 2</label>
+                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                </div>
+                
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-1"></div>
+                                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                                        <label id="account_name_2021"><i class="fa fa-angle-right">2021</i></label>
+                                        <div id="account_name_2021_month" name="month">
+                                            <div class="row">
+                                                <div class="col-lg-1 col-md-1"></div>
+                                                <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                                                    <label>Month 1</label>
+                
+                                                </div>
+                                            </div>
+                
+                                            <div class="row">
+                                                <div class="col-lg-1 col-md-1"></div>
+                                                <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                                                    <label>Month 2</label>
+                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+        
+        
+        
+        
+        </div>
     </div>
 
     <script src=" {% static 'assets/js/jquery.min.js' %}"></script>
@@ -286,6 +355,7 @@
     <script src="{% static 'assets/js/accounts_state.js' %}"></script>
     <script src="{% static 'assets/js/user_detail.js' %}"></script>
     <script src="{% static 'assets/js/accounts.js' %}"></script>
+    <script src="{% static 'assets/js/acc_state_and_transaction.js' %}"></script>
 </body>
 
 </html>

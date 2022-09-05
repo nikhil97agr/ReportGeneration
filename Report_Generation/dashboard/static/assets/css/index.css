@@ -140,3 +140,23 @@ h5 span{
 #login-form-container div{
     padding:0px;
 }
+
+#acc_state_trans_btn{
+    width: 100%;
+}
+
+
+div[name='month'], div[name='year']{
+    display: none;
+}
+
+#acc_state_trans{
+        background-color: #F9F5EB;
+        color: #00008C;
+
+}
+
+#acc_state_trans label:hover{
+    cursor: pointer;
+    color: blue;
+}

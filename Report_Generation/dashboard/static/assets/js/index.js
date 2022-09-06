@@ -11,6 +11,8 @@ $(document).ready(() => {
             $('#all_acc_btn').css('background-color','#607EAA')
             $("#accounts_table").attr("hidden", true)
             $("#account_state").attr("hidden",true)
+            $('#acc_state_trans_btn').css('background-color', '#607EAA')
+            $("#acc_state_trans").attr("hidden", true)
         }
         $('#transaction_btn').css('background-color','#00008C')
         $("#transactions_table").attr("hidden",false)
@@ -22,6 +24,8 @@ $(document).ready(() => {
             $('#all_acc_btn').css('background-color','#607EAA')
             $("#transactions_table").attr("hidden", true)
             $("#accounts_table").attr("hidden",true)
+            $('#acc_state_trans_btn').css('background-color', '#607EAA')
+            $("#acc_state_trans").attr("hidden", true)
         }
         $('#account_btn').css('background-color','#00008C')
         $("#account_state").attr("hidden",false)
@@ -33,9 +37,24 @@ $(document).ready(() => {
             $('#account_btn').css('background-color', '#607EAA')
             $("#transactions_table").attr("hidden", true)
             $("#account_state").attr("hidden", true)
+            $('#acc_state_trans_btn').css('background-color', '#607EAA')
+            $("#acc_state_trans").attr("hidden", true)
         }
         $('#all_acc_btn').css('background-color', '#00008C')
         $("#accounts_table").attr("hidden", false)
+    })
+    $("#acc_state_trans_btn").click(() => {
+        var attr = $('#acc_state_trans').attr('hidden');
+        if (typeof attr !== 'undefined' || attr !== false) {
+            $('#transaction_btn').css('background-color', '#607EAA')
+            $('#account_btn').css('background-color', '#607EAA')
+            $("#transactions_table").attr("hidden", true)
+            $("#account_state").attr("hidden", true)
+            $('#all_acc_btn').css('background-color', '#607EAA')
+            $("#accounts_table").attr("hidden", true)
+        }
+        $('#acc_state_trans_btn').css('background-color', '#00008C')
+        $("#acc_state_trans").attr("hidden", false)
     })
    
 

@@ -74,7 +74,7 @@ const register_click_acc = (id, child) => {
 }
 
 
-const separate_year_month = (data) => {
+const separate_year_month = (data,acc_num) => {
     result = new Map()
     $.each(data, (key, value) => {
         const date = new Date(key)
@@ -105,7 +105,7 @@ const populate_data = (data) => {
                 <div id="${key}_year" name="year">`;
 
         // register_click_acc(key, `${key}_year`);
-        const year_month_mapping = separate_year_month(value.data);
+        const year_month_mapping = separate_year_month(value.data,key);
 
         $.each(year_month_mapping, (year, year_data) => {
                     temp+= `
@@ -165,7 +165,10 @@ const populate_table = (id, data) => {
         $("#transactions_table_overlay").empty();
         const acc_state = data[0];
         const transaction = data[1];
+        
         $("#account_state_overlay").append(`
+        
+                
             <tr>
             <td>${acc_state.id}</td>
             <td>${acc_state.account_number}</td>

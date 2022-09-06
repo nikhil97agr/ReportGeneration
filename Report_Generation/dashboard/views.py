@@ -22,8 +22,10 @@ from datetime import date
 def home(request):
     return render(request, 'index.html')
 
-def filter_transactions(acc_state_date : date, transactions):
-    filtered_transaction = [transaction for transaction in transactions if (acc_state_date.month == transaction['date'].month and acc_state_date.year == transaction['date'].year)]
+def filter_transactions(acc_num,acc_state_date : date, transactions):
+    
+    filtered_transaction = [transaction for transaction in transactions if (acc_state_date.month == transaction['date'].month and acc_state_date.year == transaction['date'].year and acc_num==transaction['acc_num'] )]
+    
     return filtered_transaction
 
 
@@ -46,7 +48,7 @@ def fetch_accounts_transaction(request):
                 {
                     str(ele['date_of_update']): 
                         [ele, filter_transactions(
-                            ele['date_of_update'], transaction_list)]
+                          acc,  ele['date_of_update'], transaction_list)]
                 for ele in acc_state_list if ele['account_number']==acc
             
             

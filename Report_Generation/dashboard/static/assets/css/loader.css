@@ -121,3 +121,22 @@ animation-delay: 0.6s;}
 .last{
    margin-right:0;
 }
+
+.overlay{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 60px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #1fbeca;
+  z-index: 2;
+  display: none;
+}
+
+#table_overlay table{
+  max-height: 10px;
+  overflow: auto;
+
+}

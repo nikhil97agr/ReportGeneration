@@ -16,6 +16,82 @@
 </head>
 
 <body>
+<div class="overlay" id="table_overlay">
+
+    <div style="margin-top: 10px;">
+
+        <table class="table table-bordered table-striped table-dark">
+
+            <thead class="thead-dark">
+
+                <tr>
+
+                    <th scope="row">Id</th>
+
+                    <th scope="row">Account Number</th>
+
+                    <th scope="row">Date</th>
+
+                    <th scope="row">Opening Balance</th>
+
+                    <th scope="row">DUE</th>
+
+                    <th scope="row">Overdue</th>
+
+                    <th scope="row">Penal Charge</th>
+
+                    <th scope="row">Total Charge</th>
+
+                    <th scope="row">Total Transfer In</th>
+
+                    <th scope="row">Total Transfer Out</th>
+
+                    <th scope="row">Closing Balance</th>
+
+                    <th scope="row">Overdue Closing</th>
+
+
+
+                </tr>
+
+            </thead>
+
+            <tbody id="account_state_overlay">
+                <!-- <tr>
+                    <td colspan="12" id="no_data">No Data Available</td>
+                </tr> -->
+
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-striped table-dark">
+
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="row">Id</th>
+                    <th scope="row">Account Number</th>
+                    <th scope="row">Date</th>
+                    <th scope="row">Amount</th>
+                    <th scope="row">CRDR</th>
+                    <th scope="row">Transaction Type</th>
+                    <th scope="row">Rule</th>
+                    <th scope="row">Transaction Type Name</th>
+                </tr>
+            </thead>
+            <tbody id="transactions_table_overlay">
+                <!-- <tr>
+                    <td colspan="8" id="no_data">No Data Available</td>
+                </tr> -->
+
+            </tbody>
+        </table>
+    </div>
+
+    <button id="overlay_close" type="button" style="width: 30%;">Close</button>
+
+
+</div>
+
     <div id="overlay">
         <div class="loader">
             <div class="square"></div>
@@ -284,64 +360,6 @@
             </table>
 
         <div id="acc_state_trans">
-            <!-- <div class="row">
-                        <div class="col-lg-1 col-md-1"></div>
-                        <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-                            <label id="account_name"><i class="fa fa-angle-right">Account Name</i></label>
-                            <div id="account_name_year" name="year">
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-1"></div>
-                                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-                                        <label id="account_name_2020"><i class="fa fa-angle-right">2020</i></label>
-                                        <div id="account_name_2020_month" name="month">
-                                            <div class="row">
-                                                <div class="col-lg-1 col-md-1"></div>
-                                                <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-                                                    <label>Month 1</label>
-                
-                                                </div>
-                                            </div>
-                
-                                            <div class="row">
-                                                <div class="col-lg-1 col-md-1"></div>
-                                                <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-                                                    <label>Month 2</label>
-                
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                </div>
-                
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-1"></div>
-                                    <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-                                        <label id="account_name_2021"><i class="fa fa-angle-right">2021</i></label>
-                                        <div id="account_name_2021_month" name="month">
-                                            <div class="row">
-                                                <div class="col-lg-1 col-md-1"></div>
-                                                <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-                                                    <label>Month 1</label>
-                
-                                                </div>
-                                            </div>
-                
-                                            <div class="row">
-                                                <div class="col-lg-1 col-md-1"></div>
-                                                <div class="col-lg-11 col-md-11 col-sm-12 col-xs-12">
-                                                    <label>Month 2</label>
-                
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-        
         
         
         
